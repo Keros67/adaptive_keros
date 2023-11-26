@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.0.1 - 2023-11-26
 
-* TODO: Describe initial release.
+* Création du package initial.
