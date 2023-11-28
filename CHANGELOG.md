@@ -1,5 +1,10 @@
 # ChangeLog
 
+## [1.0.1] - 2023-11-28
+
+* Ajout de Screenshot Read me.
+* Fonctions spécifiques privatisées.
+
 ## [1.0.0] - 2023-11-28
 
 * Ajout de documentations sur le code Dart.
