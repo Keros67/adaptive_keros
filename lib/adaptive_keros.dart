@@ -21,13 +21,19 @@ class Adaptive {
         : androidText(align, string: string, style: style);
   }
 
-  static Future alert({required BuildContext context}) {
+  static button({required Widget child, required VoidCallback onPressed}) {
+    return isIOS()
+        ? iOSButton(child: child, onPressed: onPressed)
+        : androidElevatedButton(child: child, onPressed: onPressed);
+  }
+
+  static Future alert({required BuildContext context, required VoidCallback onPressed}) {
     return showDialog(
         context: context,
         builder: (context) {
           return isIOS()
-              ? iOSErrorAlert(context: context)
-              : androidErrorAlert(context: context);
+              ? iOSErrorAlert(context: context, onPressed: onPressed)
+              : androidErrorAlert(context: context, onPressed: onPressed);
         });
   }
 
@@ -49,7 +55,12 @@ class Adaptive {
     );
   }
 
-  static androidErrorAlert({required BuildContext context}) {
+  static ElevatedButton androidElevatedButton(
+      {required Widget child, required VoidCallback onPressed}) {
+    return ElevatedButton(onPressed: onPressed, child: child);
+  }
+
+  static androidErrorAlert({required BuildContext context, required VoidCallback onPressed}) {
     return AlertDialog(
       title: const Text('Erreur'),
       content: const Column(
@@ -59,8 +70,8 @@ class Adaptive {
         ],
       ),
       actions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
+        button(
+            onPressed: onPressed, child: const Text('Ok'))
       ],
     );
   }
@@ -86,7 +97,7 @@ class Adaptive {
     );
   }
 
-  static iOSErrorAlert({required BuildContext context}) {
+  static iOSErrorAlert({required BuildContext context, required VoidCallback onPressed}) {
     return CupertinoAlertDialog(
       title: const Text('Erreur'),
       content: const Column(
@@ -95,8 +106,8 @@ class Adaptive {
         ],
       ),
       actions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context), child: const Text('Ok'))
+        button(
+            onPressed: onPressed, child: const Text('Ok'))
       ],
     );
   }
@@ -107,5 +118,10 @@ class Adaptive {
       color: color ?? Colors.black,
       fontSize: size ?? 20,
     );
+  }
+
+  static CupertinoButton iOSButton(
+      {required Widget child, required VoidCallback onPressed}) {
+    return CupertinoButton(onPressed: onPressed, child: child);
   }
 }

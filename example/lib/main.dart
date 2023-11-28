@@ -41,8 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Adaptive.text(Colors.red[900], 20, TextAlign.center,
               string: '${Adaptive.isIOS()}'),
-          ElevatedButton(
-              onPressed: () => Adaptive.alert(context: context),
+          Adaptive.button(
+              onPressed: () => Adaptive.alert(
+                  context: context,
+                  onPressed: () {
+                    print("Success");
+                    Navigator.pop(context);
+                  }),
               child: Adaptive.text(Colors.red[900], 20, TextAlign.center,
                   string: 'Press Me')),
         ],
