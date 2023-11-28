@@ -40,16 +40,27 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Adaptive.text(Colors.red[900], 20, TextAlign.center,
-              string: '${Adaptive.isIOS()}'),
+              string: 'Ceci est notre App Test'),
           Adaptive.button(
               onPressed: () => Adaptive.alert(
                   context: context,
                   onPressed: () {
-                    print("Success");
+                    print("Test");
                     Navigator.pop(context);
                   }),
               child: Adaptive.text(Colors.red[900], 20, TextAlign.center,
                   string: 'Press Me')),
+          Adaptive.button(
+            child: Adaptive.text(Colors.red[900], 20, TextAlign.center, string: 'Montrer l\'alerte'), 
+            onPressed: (){
+              Adaptive.alert(
+                context: context,
+                onPressed: () {
+                  Navigator.pop(context);
+                }
+              );
+            }
+            )
         ],
       )),
     );

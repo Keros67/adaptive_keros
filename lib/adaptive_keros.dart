@@ -6,47 +6,50 @@ import 'dart:io';
 
 class Adaptive {
   ///Check Platform
-  static bool isIOS() => (Platform.isIOS);
+  static bool _isIOS() => (Platform.isIOS);
 
   ///Material Design Adapted
-  
+
   ///Fonction pour le Scaffold adapté
   static Widget scaffold({required String string, required Widget body}) {
-    return isIOS() ? iOSScaffold(string, body) : androidScaffold(string, body);
+    return _isIOS()
+        ? _iOSScaffold(string, body)
+        : _androidScaffold(string, body);
   }
 
   ///Fonction pour le Texte adapté
   static text(Color? color, double? size, TextAlign? align,
       {required String string}) {
-    TextStyle style = textStyle(color, size, align);
-    return isIOS()
-        ? iOSText(align, string: string, style: style)
-        : androidText(align, string: string, style: style);
+    TextStyle style = _textStyle(color, size, align);
+    return _isIOS()
+        ? _iOSText(align, string: string, style: style)
+        : _androidText(align, string: string, style: style);
   }
 
   ///Fonction pour le Bouton adapté
   static button({required Widget child, required VoidCallback onPressed}) {
-    return isIOS()
-        ? iOSButton(child: child, onPressed: onPressed)
-        : androidElevatedButton(child: child, onPressed: onPressed);
+    return _isIOS()
+        ? _iOSButton(child: child, onPressed: onPressed)
+        : _androidElevatedButton(child: child, onPressed: onPressed);
   }
 
   ///Fonction pour le Alerte adapté
-  static Future alert({required BuildContext context, required VoidCallback onPressed}) {
+  static Future alert(
+      {required BuildContext context, required VoidCallback onPressed}) {
     return showDialog(
         context: context,
         builder: (context) {
-          return isIOS()
-              ? iOSErrorAlert(context: context, onPressed: onPressed)
-              : androidErrorAlert(context: context, onPressed: onPressed);
+          return _isIOS()
+              ? _iOSErrorAlert(context: context, onPressed: onPressed)
+              : _androidErrorAlert(context: context, onPressed: onPressed);
         });
   }
 
   ///Android Material
   ///A ne pas integrer directement au code mais plutôt utiliser les fonctions qui s'adaptent
-  
+
   ///Le Scaffold Android
-  static Scaffold androidScaffold(String string, Widget body) {
+  static Scaffold _androidScaffold(String string, Widget body) {
     return Scaffold(
       appBar: AppBar(
         title: Text(string),
@@ -56,22 +59,24 @@ class Adaptive {
   }
 
   /// Texte Android
-  static Text androidText(TextAlign? align,
+  static Text _androidText(TextAlign? align,
       {required String string, required TextStyle style}) {
     return Text(
       string,
+      textAlign: align,
       style: style,
     );
   }
 
   ///Elevated Button Android
-  static ElevatedButton androidElevatedButton(
+  static ElevatedButton _androidElevatedButton(
       {required Widget child, required VoidCallback onPressed}) {
     return ElevatedButton(onPressed: onPressed, child: child);
   }
 
   ///Alerte Android
-  static androidErrorAlert({required BuildContext context, required VoidCallback onPressed}) {
+  static _androidErrorAlert(
+      {required BuildContext context, required VoidCallback onPressed}) {
     return AlertDialog(
       title: const Text('Erreur'),
       content: const Column(
@@ -80,18 +85,15 @@ class Adaptive {
           Text('Une erreur est apparue'),
         ],
       ),
-      actions: [
-        button(
-            onPressed: onPressed, child: const Text('Ok'))
-      ],
+      actions: [button(onPressed: onPressed, child: const Text('Ok'))],
     );
   }
 
   ///iOS Material
   ///A ne pas integrer directement au code mais plutôt utiliser les fonctions qui s'adaptent
-  
+
   ///Le Scaffold iOS
-  static CupertinoPageScaffold iOSScaffold(String string, Widget body) {
+  static CupertinoPageScaffold _iOSScaffold(String string, Widget body) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(string),
@@ -101,7 +103,7 @@ class Adaptive {
   }
 
   ///Text iOS
-  static DefaultTextStyle iOSText(TextAlign? align,
+  static DefaultTextStyle _iOSText(TextAlign? align,
       {required String string, required TextStyle style}) {
     return DefaultTextStyle(
       style: style,
@@ -113,13 +115,14 @@ class Adaptive {
   }
 
   ///Bouton iOS
-  static CupertinoButton iOSButton(
+  static CupertinoButton _iOSButton(
       {required Widget child, required VoidCallback onPressed}) {
     return CupertinoButton(onPressed: onPressed, child: child);
   }
 
   ///Alerte iOS
-  static iOSErrorAlert({required BuildContext context, required VoidCallback onPressed}) {
+  static _iOSErrorAlert(
+      {required BuildContext context, required VoidCallback onPressed}) {
     return CupertinoAlertDialog(
       title: const Text('Erreur'),
       content: const Column(
@@ -127,10 +130,7 @@ class Adaptive {
           Text('Une erreur est apparue'),
         ],
       ),
-      actions: [
-        button(
-            onPressed: onPressed, child: const Text('Ok'))
-      ],
+      actions: [button(onPressed: onPressed, child: const Text('Ok'))],
     );
   }
 
@@ -138,12 +138,10 @@ class Adaptive {
   ///A ne pas integrer directement au code mais plutôt utiliser les fonctions qui s'adaptent
 
   ///Style de Texte qui s'intègre aux textes iOS et Android
-  static TextStyle textStyle(Color? color, double? size, TextAlign? align) {
+  static TextStyle _textStyle(Color? color, double? size, TextAlign? align) {
     return TextStyle(
       color: color ?? Colors.black,
       fontSize: size ?? 20,
     );
   }
-
-  
 }
