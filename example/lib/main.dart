@@ -31,24 +31,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Notre App tourne sous iOS= ${Adaptive.isIOS()}',
-            ),
-          ],
-        ),
-      ),
+    return Adaptive.scaffold(
+      string: 'Test',
+      body: Center(child: Adaptive.text(Colors.red[900], 20, TextAlign.center, string: '${Adaptive.isIOS()}'
+      )),
     );
   }
 }
