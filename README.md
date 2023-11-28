@@ -17,5 +17,5 @@ dependencies:
 Dans le fichier Dart, importez:
 
 ```dart
-import 'package:adaptive_keros/adaptive_keros.dart';
+import'package:adaptive_keros/adaptive_keros.dart';
 ``````
