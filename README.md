@@ -9,7 +9,7 @@ Pour utiliser ce package, ajouté au `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  adaptive_keros= ^0.0.1
+  adaptive_keros= ^1.0.0
 ```
 
 ## Usage
