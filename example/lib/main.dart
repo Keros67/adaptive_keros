@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -35,7 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Adaptive.scaffold(
       string: 'Test',
-      body: Center(child: Adaptive.text(Colors.red[900], 20, TextAlign.center, string: '${Adaptive.isIOS()}'
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Adaptive.text(Colors.red[900], 20, TextAlign.center,
+              string: '${Adaptive.isIOS()}'),
+          ElevatedButton(
+              onPressed: () => Adaptive.alert(context: context),
+              child: Adaptive.text(Colors.red[900], 20, TextAlign.center,
+                  string: 'Press Me')),
+        ],
       )),
     );
   }
