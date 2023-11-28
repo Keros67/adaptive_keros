@@ -1,6 +1,6 @@
 name: adaptive_keros
 description: Apprendre à créer un package qui s'adapte selon l'OS utilisé.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Keros67/adaptive_keros
 
 environment:
